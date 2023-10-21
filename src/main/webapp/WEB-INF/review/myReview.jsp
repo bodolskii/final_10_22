@@ -55,7 +55,7 @@
 </nav>
 
 <!-- 주요 내용 섹션 -->
-<div class="container mt-4">
+<div class="container mt-4" >
     <div class="row">
         <!-- 리뷰 목록 -->
         <div class="col-xl-12 mx-5">

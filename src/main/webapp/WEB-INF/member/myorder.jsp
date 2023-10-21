@@ -31,7 +31,7 @@
 </nav>
 
 
-<div class="untree_co-section before-footer-section">
+<div class="untree_co-section before-footer-section" style="height: 85%">
     <div class="container">
         <div class="row mb-5">
             <form class="col-md-12" name="frmCart" method="get">
@@ -41,7 +41,7 @@
 
                         <tr>
                             <th class="product-thumbnail" colspan="2">상품정보</th>
-                            <th class="product-name">주문일자</th>
+                            <th class="product-name" style="width: 300px">주문일자</th>
                             <th class="product-quantity">주문번호</th>
                             <th class="product-quantity" style="width: 200px">주문금액(수량)</th>
                             <th class="product-quantity" style="width: 200px">주문상태</th>
@@ -63,8 +63,8 @@
                                 <td class="product-thumbnail">
                                     <span><%= itemDTO.getProductName() %></span>
                                 </td>
-                                <td class="product-name">
-                                    <h2 class="h5 text-black"><%= order.getOrderDate() %></h2>
+                                <td class="product-name" >
+                                    <h2 class="h5 text-black"><%= order.getOrderDate().substring(0,10) %></h2>
                                 </td>
                                 <td class="product-name">
                                     <h2 class="h5 text-black"><%= order.getOrderId() %></h2>

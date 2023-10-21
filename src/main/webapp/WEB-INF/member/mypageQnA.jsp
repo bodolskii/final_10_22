@@ -1,6 +1,7 @@
 <%@ page import="com.example.mongchi_shop.dto.ProductDTO" %>
 <%@ page import="java.util.List" %>
-<%@ page import="com.example.mongchi_shop.dto.CartDTO" %><%--
+<%@ page import="com.example.mongchi_shop.dto.CartDTO" %>
+<%@ page import="com.example.mongchi_shop.dto.MemberDTO" %><%--
   Created by IntelliJ IDEA.
   User: Admin
   Date: 2023-10-13
@@ -50,13 +51,13 @@
     int lastPage=thisBlock*pagePerBlock; // 블럭의 마지막 페이지
     lastPage=(lastPage>totalPage)?totalPage:lastPage;
 
-    String emailId="d";
 
 
-//  MemberDTO memberDTO=session.getAttribute("loginInfo");
-//  String emailId=memberDTO.getEmailId();
+
+  MemberDTO memberDTO= (MemberDTO) session.getAttribute("loginInfo");
+  String emailId = memberDTO.getEmailId();
 %>
-<section class="ftco-section">
+<section class="ftco-section " style="height: 70%" >
     <div class="container">
         <div class="row justify-content-center"></div>
         <div class="row">
@@ -70,16 +71,18 @@
                             <th>아이디</th>
                             <th>내용</th>
                             <th>작성일</th>
+
                         </tr>
                         </thead>
                         <tbody>
                         <c:forEach var="qnaDto" items="${qnABoardDTOList}">
+                            <c:set value="<%=emailId%>" var="email" />
                             <tr data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                                 <td>${qnaDto.isAnswered() ? "답변 완료" : "미답변"}</td>
                                 <td>${qnaDto.getEmailId()}</td>
                                 <c:if test="${qnaDto.secreted == true}">
                                     <c:choose>
-                                        <c:when test="${qnaDto.emailId eq 'd'}">
+                                        <c:when test="${qnaDto.getEmailId() eq email}">
                                              <td>${qnaDto.questionContent}</td>
                                         </c:when>
                                         <c:otherwise>
@@ -100,7 +103,7 @@
                             <tr>
                                 <c:if test="${qnaDto.secreted == true && qnaDto.answered == true}">
                                     <c:choose>
-                                        <c:when test="${qnaDto.emailId eq 'd'}">
+                                        <c:when test="${qnaDto.emailId eq email}">
                                             <td colspan="6">${qnaDto.questionContent}</td>
                                             <td colspan="6">${qnaDto.answerContent}</td>
                                             <td colspan="6">${qnaDto.answerDate}</td>
@@ -131,37 +134,39 @@
 <%--<div></div>--%>
 
 <!-- 페이지 -->
-<div style="text-align: center">
+<div>
     <c:set var="currentPage" value="<%=currentPage%>"/>
 
-    <a href="/qnaBoard/qnaList?currentPage=1"/><span>처음</span></a>
-    <c:if test="${thisBlock>1}">
-        <a href="/qnaBoard/qnaList?currentPage=${firstPage-1}"/><span>이전</span></a>
-    </c:if>
-    <c:forEach var="i" begin="<%=firstPage%>" end="<%=lastPage%>">
-        <a href="/qnaBoard/qnaList?currentPage=${i}">
-                <%--                    <a href="./boardList.do?pageNum=${i}&items=<%=items%>&text=<%=text%>">--%>
-            <c:choose>
-                <c:when test="${currentPage==i}">
-                    <font color="#2f4f4f"><b>[${i}]</b></font>
-                </c:when>
-                <c:otherwise>
-                    <font color="#696969">[${i}]</font>
-                </c:otherwise>
-            </c:choose>
-        </a>
-    </c:forEach>
-
-    <c:if test="${thisBlock<totalBlock}">
-        <a href="/qnaBoard/qnaList?currentPage=${lastPage+1}"/><span>다음</span></a>
-    </c:if>
-    <a href="/qnaBoard/qnaList?currentPage=${totalPage}"/><span>마지막</span></a>
-
-    <script src="/js/bootstrap.bundle.min.js"></script>
-    <script src="/js/tiny-slider.js"></script>
-    <script src="/js/custom.js"></script>
-
+    <ul class="pagination flex-wrap justify-content-center">
+        <c:if test="${thisBlock>1}">
+            <li class="page-item">
+                <a class="page-link" data-num="<%=firstPage-1%>">prev</a>
+            </li>
+        </c:if>
+        <c:forEach var="num" begin="<%=firstPage%>" end="<%=lastPage%>">
+            <li class="page-item ${currentPage == num ? "active" : ""}">
+                <a class="page-link" data-num="${num}">${num}</a>
+            </li>
+        </c:forEach>
+        <c:if test="<%=thisBlock<totalBlock%>">
+            <li class="page-item">
+                <a href="#" class="page-link" data-num="<%=lastPage+1%>">next</a>
+            </li>
+        </c:if>
+    </ul>
 </div>
+
+<script>
+    document.querySelector('.pagination').addEventListener('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        const target = e.target;
+        if(target.tagName !== 'A') {
+            return;
+        }
+    });
+</script>
 </div>
 </ul>
 

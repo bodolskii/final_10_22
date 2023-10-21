@@ -37,12 +37,12 @@
         </div>
         <div class="form-group">
             <label for="zipCode">우편번호</label>
-            <input type="text" name="zipCode" id="zipCode" class="form-control" placeholder="우편번호">
+            <input type="text" name="zipCode" id="zipCode" class="form-control" placeholder="우편번호" readonly>
             <input type="button" name="findCode" class="btn btn-primary" value="우편번호 찾기"/>
         </div>
         <div class="form-group">
             <label for="address01">번지수/도로명</label>
-            <input type="text" name="address01" id="address01" class="form-control" placeholder="주소">
+            <input type="text" name="address01" id="address01" class="form-control" placeholder="주소" readonly>
         </div>
         <div class="form-group">
             <label for="address02">상세주소</label>

@@ -20,7 +20,7 @@
 
     </div>
 </nav>
-<div class="container" style="margin-top: 80px">
+<div class="container" style="margin: 80px" >
     <form action="/member/modify" method="post">
         <div class="form-group">
             <label>이메일</label>

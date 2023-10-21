@@ -69,6 +69,7 @@ public class MypageQnA extends HttpServlet {
         req.setAttribute("totalPage", totalPage);
         req.setAttribute("qnABoardDTOList", qnABoardDTOList);
 
+
         log.info("qnABoardDTOList: " + qnABoardDTOList);
 
         req.setAttribute("ROW_PER_PAGE", ROW_PER_PAGE);
