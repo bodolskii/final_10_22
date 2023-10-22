@@ -165,6 +165,8 @@
         if(target.tagName !== 'A') {
             return;
         }
+        const num = target.getAttribute('data-num');
+        self.location = `/member/myQnA?currentPage=\${num}`;
     });
 </script>
 </div>
